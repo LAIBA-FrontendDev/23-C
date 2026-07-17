@@ -18,17 +18,22 @@ export default async function CollectionsPage() {
     .lean();
 
   // 3. Serialize MongoDB Documents into standard Client-safe TypeScript Types
-  const serializedProducts: ProductType[] = products.map((product: any) => ({
-    _id: product._id.toString(),
-    name: product.name,
-    description: product.description,
-    price: product.price,
-    image: product.image,
-    category: product.category,
-    rating: product.rating || 5,
-    createdAt: product.createdAt ? product.createdAt.toISOString() : new Date().toISOString(),
-    updatedAt: product.updatedAt ? product.updatedAt.toISOString() : new Date().toISOString(),
-  }));
+  // 3. Serialize MongoDB Documents into standard Client-safe TypeScript Types
+const serializedProducts: ProductType[] = products.map((product: any) => ({
+  _id: product._id.toString(),
+  name: product.name,
+  description: product.description,
+  price: product.price,
+  image: product.image,
+  category: product.category,
+  rating: product.rating,
+  createdAt: product.createdAt?.toString() || new Date().toISOString(),
+  updatedAt: product.updatedAt?.toString() || new Date().toISOString(),
+  // Yeh do lines missing theen, inhein lazmi add karein:
+  stock: product.stock ?? 0, 
+  isBestSeller: product.isBestSeller ?? false,
+}));
+
 
   return (
     <main className="min-h-screen bg-[#FAFAFA] py-32">
