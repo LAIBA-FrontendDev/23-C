@@ -60,3 +60,4 @@ const serializedProducts: ProductType[] = products.map((product: any) => ({
   );
 }
 
+
